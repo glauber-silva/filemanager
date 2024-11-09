@@ -7,6 +7,7 @@ class Config:
     BASE_URL = "http://localhost:5000"
     CSRF_ENABLED = True
 
+
 class DevelopmentConfig(Config):
     DEBUG = True
 
