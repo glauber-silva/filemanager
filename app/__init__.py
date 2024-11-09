@@ -4,6 +4,8 @@ from flask import Flask
 from flask_cors import CORS
 
 from app.config import DevelopmentConfig, TestingConfig, ProductionConfig
+from app.api import api_v1
+from app.api.health.view import healthcheck_bp
 
 def create_app(deploy_env: str = os.getenv("FLASK_ENV", "Development")) -> Flask:
     app = Flask(__name__)
@@ -18,9 +20,8 @@ def create_app(deploy_env: str = os.getenv("FLASK_ENV", "Development")) -> Flask
         __configure_extensions(app)
     app.app_context().push()
 
-    @app.route("/hello")
-    def hello():
-        return "Hello World"
+    app.register_blueprint(healthcheck_bp, url_prefix="/api")
+    app.register_blueprint(api_v1, url_prefix="/api/v1")
 
     return app
 
