@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: filemanager
+    hostname: filemanager
+    image: filemanager
+    env_file:
+      - .env
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+    networks:
+      - filemanager
+
+  mongodb:
+    image: mongo:latest
+    restart: on-failure
+    container_name: mongodb
+    hostname: mongodb
+    command: mongod --auth
+    env_file:
+      - .env
+    ports:
+      - "27017:27017"
+    networks:
+      - filemanager
+
+networks:
+  filemanager:
+    driver: bridge
