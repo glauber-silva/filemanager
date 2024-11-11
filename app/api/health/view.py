@@ -3,6 +3,7 @@ from http import HTTPStatus
 from flask import make_response, jsonify, Blueprint
 from flask_restx import Resource, Api
 
+from app.db import mongo
 
 healthcheck_bp = Blueprint("healthcheck", __name__)
 api = Api(healthcheck_bp)
@@ -16,7 +17,8 @@ class Health(Resource):
         """
         Check API's health status
         """
+        count = mongo.db.files.count_documents({})
 
-        services = {"application": "ok"}
+        services = {"application": "ok", "total_documents": count }
 
         return make_response(jsonify({"services": services}), HTTPStatus.OK)

@@ -24,6 +24,7 @@ RUN find /home/filemanager -type d -exec chmod -v 775 {} \;
 RUN find /home/filemanager -type f -exec chmod -v 755 {}  \;
 
 RUN chmod +x entrypoint.sh
+RUN chmod +x mongo-init/init-mongo.sh
 
 USER filemanager
 

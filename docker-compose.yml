@@ -21,12 +21,20 @@ services:
     image: mongo:latest
     restart: on-failure
     container_name: mongodb
+    user: root
     hostname: mongodb
     command: mongod --auth
     env_file:
       - .env
+    environment:
+      - MONGODB_DATABASE=filemanager
+      - MONGODB_USERNAME=filemanager
+      - MONGODB_PASSWORD=filepwd
     ports:
       - "27017:27017"
+    volumes:
+      - ./mongo-init:/docker-entrypoint-initdb.d
+    entrypoint: ["/bin/bash", "/docker-entrypoint-initdb.d/init-mongo.sh"]
     networks:
       - filemanager
 

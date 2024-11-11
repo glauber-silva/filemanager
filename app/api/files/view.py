@@ -1,8 +1,10 @@
 from http import HTTPStatus
 
-from flask import make_response, jsonify
+from flask import make_response, request, jsonify
 from flask_restx import Resource, Namespace
 
+from app.api.files.service import TextFileService
+from app.api.files.exceptions import FileAlreadyExistsException
 
 ns = Namespace("file", "Files Management")
 
@@ -15,8 +17,10 @@ class FileUploadView(Resource):
         """
         Add a file to be stored
         """
-        msg = "The file is being processed"
-
-        # TODO Add service to upload the File
-
-        return make_response(jsonify({"msg": msg}), HTTPStatus.OK)
+        try:
+            service = TextFileService()
+            file = request.files['file']
+            resp = service.process(file)
+            return make_response(jsonify(resp), HTTPStatus.CREATED)
+        except FileAlreadyExistsException as e:
+            return make_response(jsonify({"error": str(e)}), HTTPStatus.BAD_REQUEST)
