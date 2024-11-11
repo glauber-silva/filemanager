@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask_restx import Api
 
-from app.api.files.view import ns as file
+from app.api.file.view import ns as file
 
 api_v1 = Blueprint("api", __name__)
 

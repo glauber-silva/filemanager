@@ -9,6 +9,7 @@ from app.api.health.view import healthcheck_bp
 from app.db import mongo
 from app.commands import create_collection
 
+
 def create_app(deploy_env: str = os.getenv("FLASK_ENV", "Development")) -> Flask:
     app = Flask(__name__)
     configuration = {

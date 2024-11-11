@@ -2,7 +2,7 @@
 
 echo "Waiting for Database ..."
 while ! nc -z mongodb 27017; do
-  sleep 0.1
+  sleep 1
 done
 
 echo "Database started"

@@ -17,8 +17,8 @@ class Health(Resource):
         """
         Check API's health status
         """
-        count = mongo.db.files.count_documents({})
+        ping = mongo.db.command("ping")
 
-        services = {"application": "ok", "total_documents": count }
+        services = {"application": "ok", "database": ping}
 
         return make_response(jsonify({"services": services}), HTTPStatus.OK)

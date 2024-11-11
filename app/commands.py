@@ -2,10 +2,12 @@ import click
 from flask.cli import with_appcontext
 from app.db import mongo
 
+
 @click.command(name="about")
 @with_appcontext
 def about():
     return "Simple service to manage files"
+
 
 @click.command(name="create_collection")
 @click.argument("collection_name")
