@@ -1,3 +1,5 @@
+import xml.etree.ElementTree as ET
+
 from http import HTTPStatus
 
 from flask import make_response, request, jsonify
@@ -45,13 +47,15 @@ class RandomLineView(Resource):
         if response_type == "application/json":
             return jsonify({"text": line_info["text"]})
         elif response_type == "application/xml":
-            return (
-                f"<line><text>{line_info['text']}</text></line>",
-                HTTPStatus.OK,
-                {"Content-Type": "application/xml"},
-            )
+            line = f"<line><text>{line_info['text']}</text></line>"
+            response = make_response(line, HTTPStatus.OK)
+            response.mimetype = "application/xml"
+            return response
 
-        return line_info["text"], 200, {"Content-Type": "text/plain"}
+        response = make_response(line_info["text"], HTTPStatus.OK)
+        response.headers["Content-Type"] = "text/plain"
+        response.mimetype = "text/plain"
+        return response
 
 
 @ns.route("/line/random-backward")
