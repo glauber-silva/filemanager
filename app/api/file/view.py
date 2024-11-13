@@ -17,13 +17,15 @@ class FileUploadView(Resource):
         """
         Add a file to be stored
         """
-        if 'file' not in request.files:
-            return make_response(jsonify({"error": str(NoFileFoundException())}), HTTPStatus.BAD_REQUEST)
+        if "file" not in request.files:
+            return make_response(
+                jsonify({"error": str(NoFileFoundException())}), HTTPStatus.BAD_REQUEST
+            )
 
         try:
             service = TextFileService()
             file = request.files["file"]
-            resp = service.process(file) 
+            resp = service.process(file)
         except FileAlreadyExistsException as err:
             return make_response(jsonify({"error": str(err)}), HTTPStatus.BAD_REQUEST)
 
@@ -37,7 +39,7 @@ class RandomLineView(Resource):
         service = TextFileService()
         line_info = service.get_random_line()
         response_type = request.headers.get("Accept", "text/plain")
-        
+
         if response_type == "application/*":
             return make_response(jsonify(line_info), HTTPStatus.OK)
         if response_type == "application/json":
