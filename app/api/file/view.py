@@ -13,11 +13,18 @@ ns = Namespace("file", "Files Management")
 
 @ns.route("/upload")
 class FileUploadView(Resource):
+    """
+    Resource for uploading a new file to the storage.
+    """
 
-    @ns.response(code=200, description="Upload a File")
+    @ns.doc("upload_file")
+    @ns.response(201, "File uploaded successfully.")
+    @ns.response(400, "File already exists or no file found in request.")
     def post(self):
         """
-        Add a file to be stored
+        Upload a file to be stored in GridFS.
+
+        This endpoint allows users to upload files that will be processed and stored in GridFS.
         """
         if "file" not in request.files:
             return make_response(
@@ -36,8 +43,20 @@ class FileUploadView(Resource):
 
 @ns.route("/line/random")
 class RandomLineView(Resource):
+    """
+    Resource for retrieving a random line from the stored files.
+    """
 
+    @ns.doc("get_random_line")
+    @ns.produces(["text/plain", "application/json", "application/xml"])
+    @ns.response(200, "Random line retrieved successfully.")
     def get(self):
+        """
+        Get a random line from the latest file.
+
+        This endpoint returns a random line from the latest uploaded file in text, JSON, or XML format.
+        """
+
         service = TextFileService()
         line_info = service.get_random_line()
         response_type = request.headers.get("Accept", "text/plain")
@@ -60,7 +79,12 @@ class RandomLineView(Resource):
 
 @ns.route("/line/random-backward")
 class RandomLineBackwardView(Resource):
+    """
+    Resource for retrieving a random line from the stored files, reversed.
+    """
 
+    @ns.doc("get_random_line_backward")
+    @ns.response(200, "Random line retrieved and reversed successfully.")
     def get(self):
         service = TextFileService()
         line = service.get_random_line_backward()
@@ -69,7 +93,12 @@ class RandomLineBackwardView(Resource):
 
 @ns.route("/longest")
 class FileLineLongestView(Resource):
+    """
+    Resource for retrieving longest lines from a single file or from multiple.
+    """
 
+    @ns.doc("get_longest_lines")
+    @ns.response(200, "Longest lines retrieved successfully.")
     def get(self):
         number = int(request.args.get("number", 100))
         service = TextFileService()
