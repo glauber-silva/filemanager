@@ -12,8 +12,12 @@ A Flask web service to upload files and access various file-based functionalitie
 
 1. Clone the repository.
 2. Install [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/) if not already installed.
-3. Run `docker-compose up --build` to start the services.
+3. Run `docker-compose up --build -d` to start the services.
 4. Access the endpoints at `http://localhost:5000`.
+
+## Swagger Documentation
+
+You can view the Swagger documentation for the API at `http://localhost:5000/api/v1/docs`.
 
 ## Endpoints
 
