@@ -39,6 +39,7 @@ You can view the Swagger documentation for the API at `http://localhost:5000/api
   curl -H "Accept: text/plain" http://localhost:5000/file/line/random
   curl -H "Accept: application/json" http://localhost:5000/file/line/random
   curl -H "Accept: application/xml" http://localhost:5000/file/line/random
+  curl -H "Accept: application/*" http://localhost:5000/file/line/random
   ```
   
 - **GET /file/random-backward**: Returns a random line in reverse.
