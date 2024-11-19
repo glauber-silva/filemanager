@@ -34,8 +34,18 @@ You can view the Swagger documentation for the API at `http://localhost:5000/api
 
 - **GET /file/random**: Returns a random line from a file.
   - Accepts `text/plain`, `application/json`, or `application/xml` response format.
+  - **Example**:
+  ```bash
+  curl -H "Accept: text/plain" http://localhost:5000/file/line/random
+  curl -H "Accept: application/json" http://localhost:5000/file/line/random
+  curl -H "Accept: application/xml" http://localhost:5000/file/line/random
+  ```
   
 - **GET /file/random-backward**: Returns a random line in reverse.
+  - **Example**:
+  ```bash
+  curl http://localhost:5000/file/line/random-backward
+  ```
 
 - **GET /file/longest**: Returns the longest lines from all files or a single file.
   - **Query Parameters**:
