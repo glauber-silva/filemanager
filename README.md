@@ -11,9 +11,11 @@ A Flask web service to upload files and access various file-based functionalitie
 ## Setup
 
 1. Clone the repository.
-2. Install [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/) if not already installed.
-3. Run `docker-compose up --build` to start the services.
-4. Access the endpoints at `http://localhost:5000`.
+2. Copy `env.example` to `.env` and modify the environment variables as needed.
+3. Install [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/) if not already installed.
+4. Run `docker-compose up --build` to start the services.
+5. Access the endpoints at `http://localhost:5000`.
+
 
 ## Endpoints
 
